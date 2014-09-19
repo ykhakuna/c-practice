@@ -1,0 +1,1 @@
+export DMALLOC_OPTIONS=debug=0x44a40503,inter=1,log=logfile

@@ -1,0 +1,16 @@
+This is the set of files and directories for running the example code theat
+is part of the memory leak detection software. It consists of four directories.
+They are:
+         dmalloc - files for building and running dmalloc_test program
+         memwatch - files for building and running memwatch_test program
+         mtrace - files for building and running the mtrace_test program
+         tests - common source file for all the tests
+
+Each directory has a README file which explains what to do to build and run
+the test.
+
+Enjoy,
+
+Cal Erickson Monta Vista Software May 02, 2002
+
+

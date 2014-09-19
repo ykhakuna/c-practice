@@ -1,0 +1,9 @@
+#!/bin/bash
+echo -e "Set up the environment variable for the mtrace logfile\n"
+export MALLOC_TRACE="mtrace_test.log"
+echo -e "\n\nRun the demo program\n"
+./mtrace_test > mtrace_test_run.log
+echo  -e "\n\nRun the mtrace script to display the results \n\n\n"
+mtrace mtrace_test mtrace_test.log > mtrace_run.log
+unset MALLOC_TRACE
+

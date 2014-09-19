@@ -1,0 +1,10 @@
+This is the README fo using memwatch to detect memory leaks demo
+program. Perform the following steps and the program will work.
+
+1. make all
+
+2. run memwatch_test
+
+3. examine the log file for the errors encountered.
+
+

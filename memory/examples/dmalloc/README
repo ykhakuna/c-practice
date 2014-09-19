@@ -1,0 +1,12 @@
+This is the README fo using dmalloc to detect memory leaks demo
+program. Perform the following steps and the program will work.
+
+1. make
+
+2. source dmalloc_setup script.
+
+3. run dmalloc_test
+
+4. examine the logfile for the errors encountered.
+
+

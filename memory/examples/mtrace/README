@@ -1,0 +1,10 @@
+This is the README fo using mtrace to detect memory leaks demo
+program. Perform the following steps and the program will work.
+
+1. make
+
+2. run_mtrace
+
+3. examine the mtrace_run_log for the errors encountered.
+
+
