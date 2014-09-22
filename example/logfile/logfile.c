@@ -45,7 +45,7 @@ void write_log_file(char *filename, char *buffer) {
 		{ //two files first, then think about 5 files
 		  //can write more files, add how to write from first file
 			int max_file=atoi(&new_filename[strlen(filename)]);
-			if (atoi(&new_filename[strlen(filename)]) == MAX_FILE_NUM)
+			if (atoi(&new_filename[strlen(filename)]) == (MAX_FILE_NUM-1))
 				{new_filename[strlen(filename)] = '0';
 				//mode=
 				}

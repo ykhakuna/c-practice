@@ -14,7 +14,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#define FILE_MAX_SIZE (100)
+#define FILE_MAX_SIZE (1*1024)
 #define MAX_FILE_NUM 3
 #define TIME_LENGTH 22 //time format length
 
