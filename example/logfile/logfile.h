@@ -15,7 +15,7 @@
 #include <unistd.h>
 
 #define FILE_MAX_SIZE (100)
-#define MAX_FILE_NUM 5
+#define MAX_FILE_NUM 3
 #define TIME_LENGTH 22 //time format length
 
 void get_local_time(char *buffer);

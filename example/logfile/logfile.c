@@ -17,7 +17,7 @@ void get_local_time(char *buffer) {
 long get_file_size(char *filename) {
 	long length = 0;
 	FILE *fp = NULL;
-	fp = fopen(filename, "r");
+	fp = fopen(filename, "a");
 	if (fp == NULL) {
 		perror("unable to open the logfile");
 		exit(1);
@@ -32,22 +32,28 @@ long get_file_size(char *filename) {
 
 void write_log_file(char *filename, char *buffer) {
 	FILE *fp = NULL;
-	if (NULL != filename && NULL != buffer) {
-		long length = get_file_size(filename);
+	static char mode[]="a+";
+	static char new_filename[128] = { 0 };
+	if ((new_filename == NULL) || (!strcmp(new_filename, "\0"))) {
+		strcpy(new_filename, filename);
+		new_filename[strlen(filename)] = '0';
+	}
+
+	if (NULL != new_filename && NULL != buffer) {
+		long length = get_file_size(new_filename);
 		if ((length + sizeof(buffer) + TIME_LENGTH) > FILE_MAX_SIZE) //exceed file size, create new one
 		{ //two files first, then think about 5 files
-			char new_filename[128];
-			sprintf(new_filename,"%s%c",filename,'1');
-			//strcat(new_filename, "1");
-			/*		fp = fopen(new_filename, "a+");
-			 if (NULL == fp) {
-			 perror("cannot open logfile1\n");
-			 exit(1);
-			 }*/
-			filename=new_filename;
+		  //can write more files, add how to write from first file
+			int max_file=atoi(&new_filename[strlen(filename)]);
+			if (atoi(&new_filename[strlen(filename)]) == MAX_FILE_NUM)
+				{new_filename[strlen(filename)] = '0';
+				//mode=
+				}
+			else
+				new_filename[strlen(filename)] += 1;
 		}
 
-		fp = fopen(filename, "a+");
+		fp = fopen(new_filename, "a+");
 		if (NULL == fp) {
 			perror("cannot open logfile1\n");
 			exit(1);
@@ -56,12 +62,12 @@ void write_log_file(char *filename, char *buffer) {
 		char now_time[32];
 		memset(now_time, 0, sizeof(now_time));
 		get_local_time(now_time);
-		fprintf(fp,"%s: ",now_time);
-		fputs(buffer,fp);
+		fprintf(fp, "%s: ", now_time);
+		fputs(buffer, fp);
 //		fwrite(now_time, strlen(now_time) + 1, 1, fp);
 //		fwrite(buffer, sizeof(buffer), 1, fp);
 
 		fclose(fp);
-		fp=NULL;
+		fp = NULL;
 	}
 }

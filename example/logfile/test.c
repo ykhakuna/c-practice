@@ -9,7 +9,7 @@
 
 int main(int argc, char** argv) {
 	int i;
-	for (i = 0; i < 60; ++i) {
+	for (i = 0; i < 14; ++i) {
 		char buffer[32];
 		memset(buffer, 0, sizeof(buffer));
 		sprintf(buffer, "====> %d\n", i);
