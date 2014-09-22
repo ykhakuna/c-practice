@@ -1,5 +1,10 @@
-#Debug directory
+#Eclipse files
+*RemoteSystemsTempFiles
 *Debug
+*.metadata
+*.cproject
+*.project
+
 # Object files
 *.o
 *.ko
