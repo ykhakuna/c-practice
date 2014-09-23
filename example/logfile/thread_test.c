@@ -52,26 +52,26 @@ void *thread_func1(void *ptr) {
 	int i;
 	for (i = 0; i < RUN_TIMES; i++) {
 		pthread_mutex_lock(&log_mutex);
-		usleep(1);
 		pthread_mutex_lock(&buf_mutex);
 		sprintf(buf, "thread %ld write into logfile.\n", pthread_self());
 		write_log_file(FILE_NAME, buf);
 		pthread_mutex_unlock(&buf_mutex);
 		pthread_mutex_unlock(&log_mutex);
-	//	usleep(1 + (int) (100000.0 * rand() / RAND_MAX + 1));
+		usleep(1 + (int) (10.0 * rand() / RAND_MAX + 1));
 	}
 }
 
 void *thread_func2(void *ptr) {
         int i;
         for (i = 0; i < RUN_TIMES; i++) {
-                pthread_mutex_lock(&buf_mutex);
-                pthread_mutex_lock(&log_mutex);                
+                pthread_mutex_lock(&log_mutex);
+                pthread_mutex_lock(&buf_mutex);                           
                 sprintf(buf, "thread %ld write into logfile.\n", pthread_self());
                 write_log_file(FILE_NAME, buf);
-                pthread_mutex_unlock(&log_mutex);
                 pthread_mutex_unlock(&buf_mutex);
-          //      usleep(1 + (int) (10.0 * rand() / RAND_MAX + 1));
+                pthread_mutex_unlock(&log_mutex);
+                
+                usleep(1 + (int) (10.0 * rand() / RAND_MAX + 1));
         }
 }
 
