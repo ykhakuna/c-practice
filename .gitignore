@@ -1,5 +1,9 @@
 #Debug directory
 *Debug
+
+#log file
+*.log
+
 # Object files
 *.o
 *.ko
