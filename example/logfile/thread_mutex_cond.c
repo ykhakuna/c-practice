@@ -64,24 +64,24 @@ int main() {
 		return ret;
 	}
 
-	//pthread_join(t1, NULL);
-	//pthread_join(t2, NULL);
-	if((!pthread_join(t1, NULL))&& (!pthread_join(t2, NULL)))
-		pthread_kill(t_log,USR1);//pthread_join(t_log, NULL);
+	pthread_join(t1, NULL);
+	pthread_join(t2, NULL);//
+	pthread_join(t_log, NULL);
+	//if((!pthread_join(t1, NULL))&& (!pthread_join(t2, NULL)))
+	//	pthread_kill(t_log,USR1);
 	
 	exit(EXIT_SUCCESS);
 }
 
 void *log_thread(void *ptr){
 	int write_times=RUN_TIMES*2;
-	while(write_times){
+	while(1){
 		pthread_mutex_lock(&buf_mutex);
 		if(strcmp(buf,"\0")){  //if the buf is not empty, write into log
 		printf("%s\n",buf);
 			write_log_file(FILE_NAME, buf);
 			memset(&buf,0,sizeof(buf));
-			write_times--;
-		//	printf("write into log\n");
+	//		write_times--;
 		}
 		//printf("write times:%d\n",write_times);
 		pthread_cond_signal(&buf_empty);
@@ -94,33 +94,28 @@ void *thread_func1(void *ptr) {
 	int i;
 	for (i = 0; i < RUN_TIMES; i++) {
 		pthread_mutex_lock(&buf_mutex);
-		pthread_cond_wait(&buf_empty, &buf_mutex);
-		printf("thread1 get into.\n");
-		//}else{
-		if(strcmp(buf,"\0")==0){ //if buf isn't empty, unlock
-			sprintf(buf, "thread1 write into logfile.\n");
-			printf("thread1 write into logfile.\n");
-		}
+		while(strcmp(buf,"\0")!=0)//if buf has data, wait for empty signal
+			pthread_cond_wait(&buf_empty, &buf_mutex);
 
+		sprintf(buf, "thread1 write into logfile.\n");
+		printf("thread1 write into buf.\n");
 		pthread_mutex_unlock(&buf_mutex);
 		//usleep(1 + (int) (10.0 * rand() / RAND_MAX + 1));
 	}
 }
 
 void *thread_func2(void *ptr) {
-        int i;
-        for (i = 0; i < RUN_TIMES; i++) {
-                pthread_mutex_lock(&buf_mutex);                      
-		pthread_cond_wait(&buf_empty, &buf_mutex);
-		//}else{
-		printf("thread2 get into.\n");
-		if(strcmp(buf,"\0")==0){ //if buf isn't empty, unlock			
-			sprintf(buf, "thread %lx write into logfile.\n", pthread_self());
-			printf("thread2 write into logfile.\n");
-		}
-                pthread_mutex_unlock(&buf_mutex);
-                                
-                //usleep(1 + (int) (10.0 * rand() / RAND_MAX + 1));
-        }
+	int i;
+	for (i = 0; i < RUN_TIMES; i++) {
+		pthread_mutex_lock(&buf_mutex); 
+		while(strcmp(buf,"\0")!=0)                     
+			pthread_cond_wait(&buf_empty, &buf_mutex);
+
+		sprintf(buf, "thread %lx write into logfile.\n", pthread_self());
+		printf("thread2 write into buf.\n");
+		pthread_mutex_unlock(&buf_mutex);
+
+		//usleep(1 + (int) (10.0 * rand() / RAND_MAX + 1));
+	}
 }
 
