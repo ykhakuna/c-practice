@@ -38,12 +38,21 @@ main(int argc,char *argv[]){
 		perror("send");
 		exit(1);
 	}
-	
-	if((recvbytes=recv(sockfd,buf,MAX_DATA_SIZE,0))==-1){
-		perror("recieve error\n");
-		exit(1);
+//printf("buf size is:%d\n",sizeof(buf));
+//memset(buf,0,sizeof(buf));
+	while(1){
+		if((recvbytes=recv(sockfd,buf,MAX_DATA_SIZE,0))==-1){
+			perror("recieve error\n");
+			exit(1);
+		}
+	printf("buff message is:%s\n",buf);
+		if((strncmp(buf,"quit",4)==0)||(buf=="")) break;
+		printf("received a message:%s\n",buf);
+printf("buf size is:%d\n",sizeof(buf));
+//		memset(buf,0,sizeof(buf));
+
 	}
-	printf("received a message:%s\n",buf);
+
 	close(sockfd);
 }
 

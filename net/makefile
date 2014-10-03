@@ -1,13 +1,14 @@
 CC := gcc
 CFLAG := -o
+DEBUG := -g
 
 all: client server
 
 client: client.o
-	$(CC) $(CFLAG) $@ $^
+	$(CC) $(CFLAG) $@ $^ $(DEBUG)
 
 server: server.o
-	$(CC) $(CFLAG) $@ $^
+	$(CC) $(CFLAG) $@ $^ $(DEBUG)
 
 clean:
 	rm *.o client server

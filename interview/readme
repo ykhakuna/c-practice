@@ -1,0 +1,12 @@
+all code here is part of interview questions, so try to write in formal way, in order to reuse them.
+
+str-rev.c--char *reverse_str(char *str)
+reverse string: the original strong ‘12345’, reverse to ‘54321’
+
+bit-cal.c--int bit_cal(int a)
+calculate the bit number of a integer, for example if there is a integer number which value is 5 (101b), the bit number is 2
+
+struct-addr.c--struct s *get_addr_struct(int *member)
+get the the address of a struct if a struct member address is known.
+
+list.c--

@@ -15,6 +15,7 @@ int main()
 {
 	struct sockaddr_in server_sockaddr,client_sockaddr;
 	int sin_size,recvbytes,send_bytes;
+	char input_str[128]="hello";
 	int sockfd,client_fd;
 	char buf[MAXDATASIZE];
 	if((sockfd = socket(AF_INET,SOCK_STREAM,0))==-1){
@@ -45,12 +46,24 @@ int main()
 		exit(1);
 	}
 	printf("received a connection :%s\n",buf);
-	
-	if((send_bytes=send(client_fd,buf,sizeof(buf),0))==-1){
-		perror("send");
-		exit(1);
+
+//	char *s;
+int times=2;
+	while(1){
+//	s=gets(input_str);
+//	s=input_str;	
+//	if(strncmp(s,"quit",4)!=0){
+		if((send_bytes=send(client_fd,input_str,(strlen(input_str)+1),0))==-1){
+			perror("send");
+			exit(1);
+		}
+printf("buf size is:%d\n",sizeof(input_str));
+		printf("send message \"%s\" to client.\n",input_str);
+	//	memset(input_str,0,sizeof(input_str));
+//		fflush(stdin);
+//		}else break;
+times--;
 	}
- 	
 	close(sockfd);
 }
 
