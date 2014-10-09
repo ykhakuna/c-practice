@@ -6,6 +6,11 @@ int b_search(int *table, int sz, int key);
 int main(int argc,char *argv[]){
 	int arr1[]={1,3,5,7,8,9};
 	int i=0, index;
+	if(argc<2)
+	{
+		printf("Wrong usage, should be: ./bsearch search_value\n");
+		exit(0);
+	}
 	printf("The array is:\n");
 	while(i<(sizeof(arr1)/sizeof(arr1[0])))
 	{

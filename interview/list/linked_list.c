@@ -8,7 +8,7 @@ typedef struct _list_item {
 void del_item(list_item **root, int val)
 {	
 	list_item *cur;//=root;
-	cur=root[0];
+	cur=root;
 //	while(cur->value != val && cur->next != NULL)
 //		cur=cur->next;	
 if(cur->value == val) cur=cur->next;else
@@ -45,6 +45,6 @@ int main()
 	list[5].value=6; list[5].next=0;
 
 	printf("test to delete list item whose value is 3\n");
-	del_item(&list, 1);
+	del_item(&list, 3);
 	print_list(list);
 }
