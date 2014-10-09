@@ -4,30 +4,24 @@ typedef struct _list_item {
     int value;
     struct _list_item *next;
 } list_item;
- 
-void del_item(list_item *root, int val)
+
+void del_item(list_item **root, int val)
 {	
-	list_item *cur=root;
-	if(root==NULL)
-	{
-		printf("Empty list!\n");
-		return ;
-	}
-	if(cur->value == val) 
-	{
-		cur=cur->next;
-		return ;
-	}
-	
+	list_item *cur;//=root;
+	cur=root[0];
+//	while(cur->value != val && cur->next != NULL)
+//		cur=cur->next;	
+if(cur->value == val) cur=cur->next;else
 	do
 	{
 		if(cur->next->value==val)
 		{	
 			cur->next=cur->next->next;
-			break;
+			return;
 		}
 		cur=cur->next;
-	}while(cur != NULL);
+	}while(cur->next != NULL);
+	printf("Cannot find the item.\n");
 }
 
 void print_list(list_item *root)
@@ -51,7 +45,6 @@ int main()
 	list[5].value=6; list[5].next=0;
 
 	printf("test to delete list item whose value is 3\n");
-	del_item(&list, 2);
+	del_item(&list, 1);
 	print_list(list);
-
 }

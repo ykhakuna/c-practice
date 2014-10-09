@@ -1,0 +1,12 @@
+a.txt
+aver
+bsearch
+bsearch.c
+byte_ave_file.c
+debug
+fn
+fn.c
+list
+makefile
+readme
+struct-addr.c
