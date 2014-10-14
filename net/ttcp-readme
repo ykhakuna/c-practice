@@ -1,0 +1,37 @@
+http://linux.hd-wireless.se/bin/view/Linux/ThroughputTest
+
+compile the ttcp.c with toolchain, then 
+
+Test the RX throughput
+in target: start ttcp in receive mode
+./ttcp -r -s
+
+then transmit started on the DUT: host
+./ttcp -t -s -n128000 <ip addr>
+This will start the transfer of 128Mb payload data.
+
+example
+./ttcp -r -s
+ttcp-r: buflen=8192, nbuf=2048, align=16384/0, port=5001  tcp
+ttcp-r: socket
+ttcp-r: accept from 192.168.12.108
+ttcp-r: 1048576000 bytes in 0.59 real seconds = 1721983.71 KB/sec +++
+ttcp-r: 128048 I/O calls, msec/call = 0.00, calls/sec = 215328.68
+ttcp-r: 0.0user 0.4sys 0:00real 88% 0i+0d 1428maxrss 0+2pf 4703+18csw
+
+./ttcp -t -s -n128000 192.168.12.108
+ttcp-t: buflen=8192, nbuf=128000, align=16384/0, port=5001  tcp  -> 192.168.12.108
+ttcp-t: socket
+ttcp-t: connect
+ttcp-t: 1048576000 bytes in 0.59 real seconds = 1723270.38 KB/sec +++
+ttcp-t: 128000 I/O calls, msec/call = 0.00, calls/sec = 215408.80
+ttcp-t: 0.0user 0.5sys 0:00real 95% 0i+0d 1352maxrss 0+2pf 2+21csw
+
+Test the TX throughput
+in host
+./ttcp -r -s
+
+in target
+./ttcp -t -s -n128000 <ip addr>
+
+

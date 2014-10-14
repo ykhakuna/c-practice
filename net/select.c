@@ -44,24 +44,24 @@ int main()
 	FD_ZERO(&readfd);
 	FD_SET(sockfd,&readfd);
 	while(1){
-	sin_size=sizeof(struct sockaddr_in);
-	if(select(MAX_CONNECTED_NO,&readfd,NULL,NULL,(struct timeval *)0)>0){
-		if(FD_ISSET(sockfd,&readfd)>0){
-			if((client_fd=accept(sockfd,(struct sockaddr *)&client_sockaddr,&sin_size))==-1){
-				perror("accept");
-				exit(1);
-			}
-			if((recvbytes=recv(client_fd,buf,MAXDATASIZE,0))==-1){
-				perror("recv");
-				exit(1);
-			}
-			if(read(client_fd,buf,MAXDATASIZE)<0){
-				perror("read");
-				exit(1);
-			}
-			printf("received a connection :%s",buf);
-		}/*if*/
-		close(client_fd);
+		sin_size=sizeof(struct sockaddr_in);
+		if(select(MAX_CONNECTED_NO,&readfd,NULL,NULL,(struct timeval *)0)>0){
+			if(FD_ISSET(sockfd,&readfd)>0){
+				if((client_fd=accept(sockfd,(struct sockaddr *)&client_sockaddr,&sin_size))==-1){
+					perror("accept");
+					exit(1);
+				}
+				if((recvbytes=recv(client_fd,buf,MAXDATASIZE,0))==-1){
+					perror("recv");
+					exit(1);
+				}
+				if(read(client_fd,buf,MAXDATASIZE)<0){
+					perror("read");
+					exit(1);
+				}
+				printf("received a connection :%s",buf);
+			}/*if*/
+			close(client_fd);
 		}/*select*/
 	}/*while*/
 }
